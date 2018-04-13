@@ -16,6 +16,14 @@ namespace DAS_WCF_REST_Service
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/GETCNS", BodyStyle = WebMessageBodyStyle.Wrapped, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         List<CNs> GETCNSID();
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/CUSTMSTTABLE", BodyStyle = WebMessageBodyStyle.Wrapped, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void AddCustomerTable(Customer Cus);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/PRODHIERTABLE", BodyStyle = WebMessageBodyStyle.Wrapped, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        void AddProductHierarchy(ProHierarchy ProHei);
     }
     [DataContract]
     public class CNs
