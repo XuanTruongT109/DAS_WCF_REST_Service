@@ -71,6 +71,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreditNote.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="DASWebservice.svc.cs">
       <DependentUpon>DASWebservice.svc</DependentUpon>

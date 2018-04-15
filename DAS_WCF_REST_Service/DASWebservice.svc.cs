@@ -17,7 +17,7 @@ namespace DAS_WCF_REST_Service
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger
     (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConStr"].ConnectionString);
-        public List<CNs> GETCNSID()
+        public List<CreditNote> GETCNSID()
         {
             throw new NotImplementedException();
         }
