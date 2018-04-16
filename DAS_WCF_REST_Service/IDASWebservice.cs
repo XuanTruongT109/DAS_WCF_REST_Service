@@ -14,15 +14,15 @@ namespace DAS_WCF_REST_Service
     public interface IDASWebservice
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/GETCNS", BodyStyle = WebMessageBodyStyle.Wrapped, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "/GETCNS", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         List<CreditNote> GETCNSID();
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "/CUSTMSTTABLE", BodyStyle = WebMessageBodyStyle.Wrapped, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "/CUSTMSTTABLE", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         void AddCustomerTable(Customer Cus);
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "/PRODHIERTABLE", BodyStyle = WebMessageBodyStyle.Wrapped, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "/PRODHIERTABLE", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         void AddProductHierarchy(ProHierarchy ProHei);
     }
     [DataContract]

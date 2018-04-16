@@ -25,15 +25,14 @@ namespace DAS_WCF_REST_Service
             }
             return dt;
         }
-        public DataTable GetSelectbyStored(string storedName)
+        public DataSet GetSelectbyStored(string storedName)
         {
             SqlConnection sQLC = new SqlConnection(ConnectionString);
-            DataTable dt = new DataTable();
+            DataSet dt = new DataSet();
             using (SqlCommand cmd = new SqlCommand(storedName, sQLC))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter();
-                dt = new DataTable();
                 da.Fill(dt);
             }
             return dt;
