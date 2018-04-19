@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Xml.Linq;
 
 namespace DAS_WCF_REST_Service
 {
@@ -14,7 +16,7 @@ namespace DAS_WCF_REST_Service
     public interface IDASWebservice
     {
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "/GETCNS", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "/GETCNS", RequestFormat = WebMessageFormat.Xml, ResponseFormat = WebMessageFormat.Xml)]
         List<CreditNote> GETCNSID();
 
         [OperationContract]
@@ -22,8 +24,16 @@ namespace DAS_WCF_REST_Service
         void AddCustomerTable(Customer Cus);
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "/PRODHIERTABLE", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "POST", UriTemplate = "/CUSTMSTTABLES", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Xml, ResponseFormat = WebMessageFormat.Xml)]
+        void AddCustomers(XElement XMLCus);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/PRODHIERTABLE", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         void AddProductHierarchy(ProHierarchy ProHei);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "/PRODHIERTABLES", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Xml, ResponseFormat = WebMessageFormat.Xml)]
+        void AddProductHierarchys(XElement XMLProHei);
     }
     [DataContract]
     public class CNs

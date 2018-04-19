@@ -1,0 +1,5 @@
+2018-04-19 10:22:45,507 [9] INFO DAS_WCF_REST_Service.DASWebservice - Get CreditNotes successfull total record: 72
+2018-04-19 11:01:28,617 [7] INFO DAS_WCF_REST_Service.DASWebservice - Get CreditNotes successfull total record: 72
+2018-04-19 11:02:16,843 [6] INFO DAS_WCF_REST_Service.DASWebservice - Get CreditNotes successfull total record: 72
+2018-04-19 11:02:30,164 [7] INFO DAS_WCF_REST_Service.DASWebservice - Get CreditNotes successfull total record: 72
+2018-04-19 11:08:28,819 [6] INFO DAS_WCF_REST_Service.DASWebservice - Get CreditNotes successfull total record: 72

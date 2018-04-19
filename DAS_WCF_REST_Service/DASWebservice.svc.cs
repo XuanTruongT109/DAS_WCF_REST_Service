@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Xml.Linq;
 
 namespace DAS_WCF_REST_Service
 {
@@ -106,12 +107,12 @@ namespace DAS_WCF_REST_Service
                     conn.Close();
                     if (result == 1)
                     {
-                        log.Info(Cus.ShiptoName.ToString() + " - Insert to CUSTMSTTABLE success" + result);
+                        log.Info(Cus.ShiptoName.ToString() + " - Insert to CUSTMSTTABLE successfull");
                         return;
                     }
                     else
                     {
-                        log.Info(Cus.ShiptoName.ToString() + " - Insert to CUSTMSTTABLE fail" + result);
+                        log.Error(Cus.ShiptoName.ToString() + " - Insert to CUSTMSTTABLE failed");
                         return;
                     }
                 }
@@ -119,7 +120,7 @@ namespace DAS_WCF_REST_Service
             catch (Exception ex)
             {
                 //throw ex;
-                log.Error(Cus.ShiptoName.ToString() + " - Fail to insert: ", ex);
+                log.Error(Cus.ShiptoName.ToString() + " - Failed to insert: ", ex);
                 return;
             }
         }
@@ -153,12 +154,12 @@ namespace DAS_WCF_REST_Service
                     conn.Close();
                     if (result == 1)
                     {
-                        log.Info(ProHei.BrandCode.ToString() + " - Insert to CUSTMSTTABLE success");
+                        log.Info(ProHei.BrandCode.ToString() + " - Insert to PRODHIERTABLE successfull");
                         return;
                     }
                     else
                     {
-                        log.Info(ProHei.BrandCode.ToString() + " - Insert to CUSTMSTTABLE fail");
+                        log.Error(ProHei.BrandCode.ToString() + " - Insert to PRODHIERTABLE failed");
                         return;
                     }
                 }
@@ -166,7 +167,102 @@ namespace DAS_WCF_REST_Service
             catch (Exception ex)
             {
                 //throw ex;
-                log.Error(ProHei.BrandCode.ToString() + " - Fail to insert: ", ex);
+                log.Error(ProHei.BrandCode.ToString() + " - Failed to insert: ", ex);
+                return;
+            }
+        }
+        public void AddCustomers(XElement xmlfile)
+        {
+            if (conn.State == System.Data.ConnectionState.Closed)
+            {
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Cannot open the Database due to: ", ex);
+                    return;
+                }
+            }
+            try
+            {
+                IEnumerable<XElement> Cus =
+                    from cu in xmlfile.Elements("Statement").Elements("CUSTMSTTABLE").Elements("access")
+                    select cu;
+                foreach (XElement cu in Cus)
+                {
+                    Customer Cus_info = new Customer();
+
+                    Cus_info.ShiptoName = cu.Element("ShiptoName").Value;
+                    Cus_info.CustNo = cu.Element("CustNo").Value;
+                    Cus_info.SalesOrg = cu.Element("SalesOrg").Value;
+                    Cus_info.Status = cu.Element("Status").Value;
+                    Cus_info.Cust_Stat = cu.Element("Cust_Stat").Value;
+                    int result = Cus_info.InsertCus(Cus_info, conn);
+                    if(result == 1)
+                    {
+                        log.Info("Insert to CUSTMSTTABLE: " + Cus_info.ShiptoName);
+                    }
+                    else
+                    {
+                        log.Info("Insert to CUSTMSTTABLE failed: " + Cus_info.ShiptoName);
+                    }
+                }
+                conn.Close();
+            }
+            catch(Exception ex)
+            {
+                log.Error("Insert into CUSTMSTTABLE failed due to: " + ex);
+                return;
+            }
+
+        }
+        public void AddProductHierarchys(XElement XMLProHei)
+        {
+            if (conn.State == System.Data.ConnectionState.Closed)
+            {
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Cannot open the Database due to: ", ex);
+                    return;
+                }
+            }
+            try
+            {
+                IEnumerable<XElement> Prohei =
+                    from phs in XMLProHei.Elements("Statement").Elements("PRODHIERTABLE").Elements("access")
+                    select phs;
+                foreach(XElement ph in Prohei)
+                {
+                    ProHierarchy Pro = new ProHierarchy();
+                    Pro.BrandCode = ph.Element("BrandCode").Value;
+                    Pro.BrandName = ph.Element("BrandName").Value;
+                    Pro.SubBrandCode = ph.Element("SubBrandCode").Value;
+                    Pro.SubbrandName = ph.Element("SubbrandName").Value;
+                    Pro.ProductID = ph.Element("ProductID").Value;
+                    Pro.CompanyID = ph.Element("CompanyID").Value;
+                    Pro.Status = ph.Element("Status").Value;
+                    int result = Pro.Inert_ProHei(Pro, conn);
+                    if(result == 1)
+                    {
+                        log.Info("Insert to PRODHIERTABLE successfull: " + Pro.BrandCode);
+                    }
+                    else
+                    {
+                        log.Info("Insert to PRODHIERTABLE failed: " + Pro.BrandCode);
+                    }
+                }
+                conn.Close();
+            }
+            
+            catch (Exception ex)
+            {
+                log.Error("Insert into CUSTMSTTABLE failed due to: " + ex);
                 return;
             }
         }
